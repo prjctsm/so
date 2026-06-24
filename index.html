@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SO Milano — Бренд-система</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dust:    #F0E8DF;
+    --ochre:   #D4B84A;
+    --chianti: #8B2635;
+    --ash:     #A89278;
+    --coal:    #3A2E28;
+    --night:   #1E1A16;
+    --surf:    #F7F5F0;
+    --border:  #E8E5DF;
+    --text2:   #6b6860;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--dust);
+    color: var(--night);
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+  }
+
+  /* ── PATTERN ── */
+  body { position: relative; }
+  .page-pattern {
+    position: fixed;
+    right: 0; bottom: 0;
+    width: 55vmin;
+    height: 55vmin;
+    pointer-events: none; z-index: 0;
+    overflow: hidden;
+  }
+  .page-pattern svg { width: 100%; height: 100%; }
+  nav, main, footer { position: relative; z-index: 1; }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 6vw;
+    height: 75px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px; font-weight: 300;
+    letter-spacing: 0.06em; color: var(--night);
+  }
+  .nav-tag {
+    font-size: 11px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--text2);
+  }
+
+  /* ── MAIN ── */
+  main {
+    flex: 1;
+    padding: 0 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 48px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  /* ── HEADING ── */
+  .heading-label {
+    font-size: 11px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--chianti);
+    margin-bottom: 16px;
+  }
+  .heading-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 8vw, 120px);
+    font-weight: 300; line-height: 0.92;
+    letter-spacing: -0.02em; color: var(--night);
+  }
+  .heading-title em {
+    font-style: italic; color: var(--chianti);
+  }
+
+  /* ── CARDS ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: var(--border);
+  }
+
+  .card {
+    background: var(--surf);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    position: relative;
+    transition: background 0.25s ease;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--chianti);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .card.active:hover { background: #f2efea; }
+  .card.active:hover::before { transform: scaleX(1); }
+
+  .card.pending {
+    background: var(--dust);
+    border: 1px solid var(--surf);
+    cursor: default;
+  }
+
+  .card-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-weight: 300;
+    letter-spacing: 0.07em;
+    color: var(--chianti);
+    margin-bottom: 16px;
+  }
+  .card.pending .card-num { opacity: 0.6; }
+
+  .card-badge {
+    display: inline-flex;
+    align-items: center;
+    height: 21px;
+    padding: 0 10px;
+    font-size: 10px; font-weight: 400;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    border: 1px solid var(--chianti);
+    color: var(--chianti);
+    margin-bottom: 32px;
+    align-self: flex-start;
+  }
+  .card.pending .card-badge {
+    border-color: var(--border);
+    color: var(--text2);
+    opacity: 0.6;
+  }
+
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 3vw, 44px);
+    font-weight: 300; line-height: 1;
+    letter-spacing: -0.01em;
+    color: var(--night);
+    margin-bottom: 12px;
+    flex: 1;
+  }
+  .card.pending .card-title { color: var(--text2); }
+
+  .card-desc {
+    font-size: 13px; font-weight: 300;
+    line-height: 1.75; color: var(--text2);
+    margin-bottom: 32px;
+  }
+  .card.pending .card-desc { opacity: 0.6; }
+
+  .card-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px; font-weight: 400;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--chianti);
+  }
+  .card-link-line {
+    width: 24px; height: 1px;
+    background: var(--chianti);
+    transition: width 0.3s ease;
+  }
+  .card.active:hover .card-link-line { width: 36px; }
+  .card.pending .card-link { color: var(--text2); }
+
+  /* ── FOOTER ── */
+  footer {
+    height: 69px;
+    border-top: 1px solid var(--border);
+    padding: 0 6vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px; font-weight: 300;
+    letter-spacing: 0.06em; color: var(--text2);
+  }
+  .footer-meta {
+    font-size: 11px; color: var(--text2);
+    letter-spacing: 0.05em; opacity: 0.5;
+  }
+
+  @media (max-width: 900px) {
+    .cards { grid-template-columns: 1fr; }
+    .heading-title { font-size: clamp(44px, 10vw, 80px); }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-pattern"><svg width="1116" height="1105" viewBox="0 0 1116 1105" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_pat)">
+<path d="M835.019 436.062C845.435 434.642 869.081 435.15 879.905 434.981C928.716 434.217 976.048 437.43 1024.37 444.981C1258.18 480.892 1467.91 608.866 1606.78 800.366C1744.87 990.5 1801.93 1227.63 1765.45 1459.76C1729.34 1695.52 1599.26 1906.61 1404.9 2044.85C1204.97 2190.07 966.719 2234.71 725.033 2196.1C664.737 2186.47 604.66 2167.15 548.491 2143.48C388.575 2076.06 263.206 1974.84 161.345 1834.08C28.3951 1650.36 -25.0515 1406.94 10.95 1183.74C42.0368 982.341 141.985 797.953 293.77 661.984C325.933 633.008 357.681 609.474 392.582 584.327C410.768 571.735 434.166 558.377 453.939 548.124C464.431 560.955 477.033 572.128 488.369 585.993C462.289 610.956 430.774 636.173 406.087 662.695C372.343 698.948 331.693 749.365 306.154 791.322C165.419 1021.68 121.782 1298.44 184.808 1560.92C229.787 1746.29 314.012 1904.27 457.783 2031.65C791.239 2327.09 1250.88 2216.12 1474.96 1845.04C1614.74 1611.27 1655.15 1331.28 1587.19 1067.52C1536.95 864.671 1416.92 670.596 1240.79 554.093C1229.04 546.316 1217.08 538.705 1205 531.449C1081.44 458.656 936.612 430.574 794.813 451.914C754.964 458.014 723.873 468.138 685.047 477.885C676.667 472.801 673.579 469.618 666.573 463.057C710.48 448.138 788.749 439.432 835.019 436.062Z" fill="#8B2635" fill-opacity="0.1"/>
+<path d="M854.032 1.62804C936.474 -7.64634 1080.48 23.4237 1146.32 76.474C1220.07 135.901 1305.67 137.736 1348.76 38.7835C1352.5 30.2423 1352.02 9.7454 1357.5 4.60211C1362.04 4.9329 1360.09 4.10211 1363.49 7.28809C1365.28 40.3536 1364.1 84.4282 1364.08 118.285L1363.99 319.414L1364.11 418.568C1364.19 431.542 1365.03 464.432 1363.03 475.501L1359.31 477.085L1356.73 475.492C1351.58 465.368 1353.55 443.996 1352.25 431.423C1322.42 140.247 1036.86 -51.8718 756.095 29.1844C684.597 49.8261 598.537 99.1416 550.591 157.477C508.966 208.119 502.67 310.211 537.028 366.509C574.222 426.394 644.354 476.562 698.4 522.115L1050.42 817.956L1154.1 904.694C1199.64 942.586 1240.7 972.215 1275.3 1021.49C1321.32 1087.04 1352.1 1164.22 1361 1243.5C1375.99 1371.15 1339.14 1499.45 1258.73 1599.71C1173.58 1705.66 1060.36 1760.54 926.444 1775.09C819.81 1780.7 717.199 1759.45 627.185 1699.21C595.874 1678.26 577.024 1659.09 536.737 1658.54C487.146 1658.34 443.1 1690.19 427.752 1737.35C423.781 1749.56 424.274 1766.69 418.035 1772.85C413.58 1771.95 415.199 1773.17 412.637 1769.8C410.559 1749.47 411.53 1717.29 411.525 1695.89L411.516 1564.45L411.589 1382.5C411.612 1371.16 410.283 1307.89 413.298 1301.28C417.246 1298.59 415.08 1299.22 420.097 1299.66C420.852 1300.32 421.606 1300.99 422.361 1301.65C422.243 1437.87 482.667 1567.29 586.717 1655.73C679.197 1734.35 804.421 1776.33 926.536 1763.81C1027.25 1753.83 1119.84 1704.19 1183.91 1625.86C1247.79 1547.14 1277.88 1446.33 1267.6 1345.48C1259.9 1275.11 1233.18 1208.16 1190.32 1151.83C1174.64 1131.39 1158.78 1115.49 1139.39 1098.86C1074.45 1043.2 1008.65 988.171 942.938 933.423C828.596 836.555 713.72 740.322 598.315 644.729C580.095 629.815 561.862 613.614 543.766 598.31C527.121 583.377 507.394 570.069 492.025 553.906C379.423 435.483 428.574 282.722 521.914 171.635C608.707 68.3383 720.461 13.2667 854.032 1.62804Z" fill="#8B2635" fill-opacity="0.1"/>
+</g>
+<defs><clipPath id="clip0_pat"><rect width="1116" height="1105" fill="white"/></clipPath></defs>
+</svg></div>
+<nav>
+  <div class="nav-logo">SO Restaurant &amp; Smoke Lounge</div>
+</nav>
+
+<main>
+  <div>
+    <div class="heading-label">SO Milano</div>
+    <h1 class="heading-title">
+      Бренд-<em>платформа</em><br>
+      <em>SO Restaurant &amp; Smoke Lounge</em>
+    </h1>
+  </div>
+
+  <div class="cards">
+
+    <!-- Стратегия -->
+    <a class="card active" href="strategy.html">
+      <div class="card-num">01</div>
+      <div class="card-title">Стратегия</div>
+      <div class="card-desc">Бренд-платформа + прикладные выводы.</div>
+      <div class="card-link">
+        Открыть
+      </div>
+    </a>
+
+    <!-- Айдентика -->
+    <a class="card active" href="identity.html">
+      <div class="card-num">02</div>
+      <div class="card-title">Айдентика</div>
+      <div class="card-desc">Визуальная концепция + логотип + цвет + типографика.</div>
+      <div class="card-link">
+        Открыть
+      </div>
+    </a>
+
+    <!-- Применение -->
+    <div class="card pending">
+      <div class="card-num">03</div>
+      <div class="card-title">Применение</div>
+      <div class="card-desc">Меню, соцсети, сайт, шаблоны, базовые носители.</div>
+      <div class="card-link">
+        Скоро
+      </div>
+    </div>
+
+    <!-- Brand Intelligence -->
+    <a class="card active" href="brand.html">
+      <div class="card-num">04</div>
+      <div class="card-title">Brand Intelligence</div>
+      <div class="card-desc">Brand Context File и системные промпты для работы с AI.</div>
+      <div class="card-link">
+        Открыть
+      </div>
+    </a>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-logo" style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text2);">2026 | Бренд-платформа</div>
+</footer>
+
+</body>
+</html>

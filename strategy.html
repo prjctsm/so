@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SO Milano — Стратегия</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dust:    #F0E8DF;
+    --ochre:   #D4B84A;
+    --chianti: #8B2635;
+    --ash:     #A89278;
+    --coal:    #3A2E28;
+    --night:   #1E1A16;
+    --surf:    #F7F5F0;
+    --text2:   #6b6860;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--dust);
+    color: var(--night);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 6vw; height: 64px;
+    background: var(--ochre);
+    transition: background 0.4s;
+  }
+  .nav-back {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none; opacity: 0.5; transition: opacity 0.3s;
+  }
+  .nav-back:hover { opacity: 1; }
+  .nav-back span {
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--night);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif; font-size: 20px;
+    font-weight: 300; letter-spacing: 0.1em; color: var(--night);
+    position: absolute; left: 50%; transform: translateX(-50%);
+  }
+  .nav-tag {
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(30,26,22,0.4);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100svh;
+    background: var(--ochre);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 6vw 8vh; position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 30%, rgba(184,137,74,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(184,137,74,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero-pattern {
+    position: absolute;
+    right: -4vw; top: 5vh;
+    width: 62vw; height: 95vh;
+    opacity: 0.18;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .hero-pattern svg { width: 100%; height: 100%; }
+  .hero-label {
+    font-size: 11px; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--chianti); margin-bottom: 20px; position: relative;
+    opacity: 0; transform: translateY(10px); animation: up 0.8s ease 0.3s forwards;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(72px, 14vw, 160px); font-weight: 300;
+    line-height: 0.92; color: var(--night); letter-spacing: -0.02em;
+    position: relative;
+    opacity: 0; transform: translateY(20px); animation: up 1s ease 0.5s forwards;
+  }
+  .hero-scroll {
+    position: absolute; right: 6vw; bottom: 44px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .hero-scroll-line { width: 40px; height: 1px; background: rgba(247,245,240,0.2); }
+  .hero-scroll-text {
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(247,245,240,0.3);
+  }
+
+  /* ── SECTIONS ── */
+  .section { padding: 100px 6vw; }
+  .section-dust  { background: var(--dust); }
+  .section-ochre { background: var(--ochre); }
+
+  .section-label {
+    font-size: 11px; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--chianti); margin-bottom: 20px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 5.5vw, 74px); font-weight: 300;
+    line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--night); margin-bottom: 44px;
+  }
+
+  .divider-ochre { width: 48px; height: 1px; background: rgba(184,137,74,0.4); margin-bottom: 44px; }
+  .divider-chianti { width: 48px; height: 1px; background: var(--chianti); margin-bottom: 44px; }
+  .divider-ash { width: 48px; height: 1px; background: var(--ash); margin-bottom: 44px; }
+
+  .body-text {
+    font-size: 19px; font-weight: 300; line-height: 1.5;
+    color: var(--text2); max-width: 620px; margin-bottom: 20px;
+  }
+  .body-text-coal { color: var(--coal); }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── CORE TAGLINE ── */
+  .core-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 52px); font-weight: 300; line-height: 1.15;
+    color: var(--night); max-width: 900px; margin-bottom: 44px;
+    letter-spacing: -0.01em;
+  }
+  .core-tagline em { font-style: italic; color: var(--chianti); }
+
+  /* ── GRID 2×2 ── */
+  .grid-2 {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; background: rgba(168,146,120,0.25); margin-top: 48px;
+  }
+  .grid-cell { background: var(--surf); padding: 36px; }
+  .grid-cell-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 48px;
+    font-weight: 300; color: var(--chianti); line-height: 1;
+    margin-bottom: 16px; opacity: 0.9;
+  }
+  .grid-cell-title {
+    font-size: 13px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--night); margin-bottom: 12px;
+  }
+  .grid-cell-text { font-size: 16px; font-weight: 300; line-height: 1.5; color: var(--text2); }
+
+  /* ── PULL QUOTE ── */
+  .pull-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 3.5vw, 44px); font-weight: 300; font-style: italic;
+    line-height: 1.3; color: var(--night); max-width: 800px; margin-bottom: 48px;
+  }
+  .pull-quote em { font-style: normal; color: var(--chianti); }
+
+  /* ── VALUES LIST ── */
+  .values-list { margin-top: 0; border-top: 1px solid rgba(30,26,22,0.1); }
+  .value-item {
+    display: grid; grid-template-columns: 52px 1fr;
+    gap: 0; align-items: start;
+    padding: 32px 20px; border-bottom: 1px solid rgba(30,26,22,0.1);
+    background: var(--dust);
+  }
+  .value-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 30px;
+    font-weight: 300; color: var(--chianti); padding-top: 4px;
+  }
+  .value-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 2.5vw, 32px); font-weight: 400;
+    color: var(--night); margin-bottom: 10px; line-height: 1.2;
+  }
+  .value-text { font-size: 16px; font-weight: 300; line-height: 1.75; color: var(--coal); }
+
+  /* ── PRINCIPLES ── */
+  .principles-list { margin-top: 48px; border-top: 1px solid rgba(30,26,22,0.1); }
+  .principle-item {
+    display: grid; grid-template-columns: auto 1fr;
+    gap: 20px; padding: 22px 20px;
+    border-bottom: 1px solid rgba(30,26,22,0.1);
+    align-items: start; background: var(--surf);
+  }
+  .principle-arrow {
+    font-size: 17px; color: var(--chianti); padding-top: 3px; font-weight: 400;
+  }
+  .principle-text { font-size: 17px; font-weight: 300; line-height: 1.6; color: var(--coal); }
+  .principle-text strong { font-weight: 500; }
+
+  /* ── POSITIONING GRID ── */
+  .pos-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; margin-top: 48px;
+  }
+  .pos-col { padding: 36px; }
+  .pos-col.no  { background: var(--chianti); }
+  .pos-col.yes { background: var(--dust); }
+  .pos-col-title {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 28px;
+  }
+  .pos-col.no  .pos-col-title { color: var(--surf); }
+  .pos-col.yes .pos-col-title { color: var(--chianti); }
+  .pos-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    margin-bottom: 12px; font-size: 16px; font-weight: 300; line-height: 1.5;
+  }
+  .pos-col.no  .pos-item { color: var(--surf); }
+  .pos-col.yes .pos-item { color: var(--night); }
+  .pos-mark { flex-shrink: 0; font-size: 14px; margin-top: 1px; }
+  .pos-col.no  .pos-mark { color: rgba(247,245,240,0.5); }
+  .pos-col.yes .pos-mark { color: var(--ash); }
+  .pos-body-text {
+    font-size: 17px; font-weight: 300; line-height: 1.75;
+    color: var(--coal); max-width: 620px; margin-bottom: 48px;
+  }
+
+  /* ── ROLE GRID ── */
+  .role-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; background: rgba(168,146,120,0.25); margin-top: 48px;
+  }
+  .role-cell { background: var(--surf); padding: 36px; }
+  .role-arrow { font-size: 28px; font-weight: 300; color: var(--chianti); line-height: 1; margin-bottom: 16px; }
+  .role-title {
+    font-size: 13px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--night); margin-bottom: 12px;
+  }
+  .role-text { font-size: 15px; font-weight: 300; line-height: 1.75; color: var(--text2); }
+
+  /* ── AUDIENCE ── */
+  .audience-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; background: rgba(247,245,240,0.08); margin-top: 48px;
+  }
+  .audience-card { background: var(--dust); padding: 28px; }
+  .audience-card-badge {
+    display: inline-block; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    border: 1px solid var(--ash); color: var(--ash);
+    padding: 3px 10px; margin-bottom: 16px;
+  }
+  .audience-card-name {
+    font-family: 'Cormorant Garamond', serif; font-size: 24px;
+    font-weight: 400; color: var(--night); margin-bottom: 16px; line-height: 1.2;
+  }
+  .audience-card-text { font-size: 15px; font-weight: 300; line-height: 1.7; color: var(--coal); }
+
+  /* ── TONE ── */
+  .tone-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; margin-top: 48px;
+  }
+  .tone-col { padding: 36px; }
+  .tone-yes { background: var(--surf); }
+  .tone-no  { background: var(--chianti); }
+  .tone-col-title {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 28px;
+  }
+  .tone-yes .tone-col-title { color: var(--text2); }
+  .tone-no  .tone-col-title { color: var(--dust); }
+  .tone-item {
+    display: flex; align-items: center; gap: 14px;
+    font-size: 16px; font-weight: 300; line-height: 1.5;
+    margin-bottom: 14px;
+  }
+  .tone-yes .tone-item { color: var(--text2); }
+  .tone-no  .tone-item { color: var(--dust); }
+  .tone-mark { flex-shrink: 0; font-size: 16px; }
+  .tone-yes .tone-mark { color: var(--ash); }
+  .tone-no  .tone-mark { color: rgba(240,232,223,0.5); }
+
+  .instagram-example {
+    background: var(--surf); padding: 28px 32px;
+    border-left: 3px solid var(--chianti); margin-top: 28px;
+  }
+  .instagram-label {
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--chianti); margin-bottom: 14px;
+  }
+  .instagram-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(17px, 1.8vw, 26px); font-weight: 300; font-style: italic;
+    line-height: 1.5; color: var(--coal);
+  }
+
+  /* ── VISUAL PRINCIPLES ── */
+  .visual-list { margin-top: 48px; border-top: 1px solid rgba(30,26,22,0.1); }
+  .visual-item {
+    display: grid; grid-template-columns: 52px 1fr;
+    gap: 0; align-items: start;
+    padding: 28px 20px; border-bottom: 1px solid rgba(30,26,22,0.1);
+    background: var(--surf);
+  }
+  .visual-arrow { font-size: 22px; color: var(--ash); opacity: 0.6; padding-top: 6px; }
+  .visual-title {
+    font-family: 'Cormorant Garamond', serif; font-size: 32px;
+    font-weight: 400; color: var(--night); margin-bottom: 10px; line-height: 1.2;
+  }
+  .visual-text { font-size: 16px; font-weight: 300; line-height: 1.75; color: var(--coal); }
+
+  .brand-essence {
+    background: var(--chianti);
+    border: 1px solid rgba(184,137,74,0.2);
+    padding: 52px; text-align: center; margin-top: 48px;
+  }
+  .brand-essence-label {
+    font-size: 11px; font-weight: 400; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--dust); margin-bottom: 20px;
+    opacity: 0.7;
+  }
+  .brand-essence-text {
+    font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 2.8vw, 42px);
+    font-weight: 300; font-style: italic; color: var(--dust); line-height: 1.2;
+  }
+
+  /* ── USAGE LIST ── */
+  .usage-list { margin-top: 48px; border-top: 1px solid rgba(30,26,22,0.1); }
+  .usage-item {
+    display: grid; grid-template-columns: 20px 1fr;
+    gap: 8px; align-items: start;
+    padding: 28px 20px; border-bottom: 1px solid rgba(30,26,22,0.1);
+    background: var(--surf); font-size: 17px; font-weight: 300;
+    line-height: 1.6; color: var(--night);
+  }
+  .usage-icon { padding-top: 4px; }
+  .usage-icon svg { display: block; }
+  .usage-item strong { font-weight: 500; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dust); padding: 0 6vw;
+    height: 105px; display: flex; align-items: center;
+    border-top: 1px solid rgba(30,26,22,0.1);
+  }
+  .footer-logo {
+    font-size: 11px; font-weight: 400;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(30,26,22,0.4);
+  }
+
+  @keyframes up { to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 768px) {
+    .section { padding: 80px 5vw; }
+    .grid-2, .pos-grid, .role-grid, .tone-grid { grid-template-columns: 1fr; }
+    .audience-grid { grid-template-columns: 1fr; }
+    nav { padding: 0 5vw; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-back" href="index.html">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <polyline points="10,2 4,8 10,14" stroke="rgba(30,26,22,0.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>Все блоки</span>
+  </a>
+  <div class="nav-logo">SO</div>
+  <div class="nav-tag">Стратегия</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern">
+    <svg width="1117" height="1105" viewBox="0 0 1117 1105" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M835.019 436.062C845.435 434.642 869.081 435.15 879.905 434.981C928.716 434.217 976.048 437.43 1024.37 444.981C1258.18 480.892 1467.91 608.866 1606.78 800.366C1744.87 990.5 1801.93 1227.63 1765.45 1459.76C1729.34 1695.52 1599.26 1906.61 1404.9 2044.85C1204.97 2190.07 966.719 2234.71 725.033 2196.1C664.737 2186.47 604.66 2167.15 548.491 2143.48C388.575 2076.06 263.206 1974.84 161.345 1834.08C28.3951 1650.36 -25.0515 1406.94 10.95 1183.74C42.0368 982.341 141.985 797.953 293.77 661.984C325.933 633.008 357.681 609.474 392.582 584.327C410.768 571.735 434.166 558.377 453.939 548.124C464.431 560.955 477.033 572.128 488.369 585.993C462.289 610.956 430.774 636.173 406.087 662.695C372.343 698.948 331.693 749.365 306.154 791.322C165.419 1021.68 121.782 1298.44 184.808 1560.92C229.787 1746.29 314.012 1904.27 457.783 2031.65C791.239 2327.09 1250.88 2216.12 1474.96 1845.04C1614.74 1611.27 1655.15 1331.28 1587.19 1067.52C1536.95 864.671 1416.92 670.596 1240.79 554.093C1229.04 546.316 1217.08 538.705 1205 531.449C1081.44 458.656 936.612 430.574 794.813 451.914C754.964 458.014 723.873 468.138 685.047 477.885C676.667 472.801 673.579 469.618 666.573 463.057C710.48 448.138 788.749 439.432 835.019 436.062Z" fill="#1E1A16" fill-opacity="0.12"/>
+      <path d="M854.032 1.62804C936.474 -7.64634 1080.48 23.4237 1146.32 76.474C1220.07 135.901 1305.67 137.736 1348.76 38.7835C1352.5 30.2423 1352.02 9.7454 1357.5 4.60211C1362.04 4.9329 1360.09 4.10211 1363.49 7.28809C1365.28 40.3536 1364.1 84.4282 1364.08 118.285L1363.99 319.414L1364.11 418.568C1364.19 431.542 1365.03 464.432 1363.03 475.501L1359.31 477.085L1356.73 475.492C1351.58 465.368 1353.55 443.996 1352.25 431.423C1322.42 140.247 1036.86 -51.8718 756.095 29.1844C684.597 49.8261 598.537 99.1416 550.591 157.477C508.966 208.119 502.67 310.211 537.028 366.509C574.222 426.394 644.354 476.562 698.4 522.115L1050.42 817.956L1154.1 904.694C1199.64 942.586 1240.7 972.215 1275.3 1021.49C1321.32 1087.04 1352.1 1164.22 1361 1243.5C1375.99 1371.15 1339.14 1499.45 1258.73 1599.71C1173.58 1705.66 1060.36 1760.54 926.444 1775.09C819.81 1780.7 717.199 1759.45 627.185 1699.21C595.874 1678.26 577.024 1659.09 536.737 1658.54C487.146 1658.34 443.1 1690.19 427.752 1737.35C423.781 1749.56 424.274 1766.69 418.035 1772.85C413.58 1771.95 415.199 1773.17 412.637 1769.8C410.559 1749.47 411.53 1717.29 411.525 1695.89L411.516 1564.45L411.589 1382.5C411.612 1371.16 410.283 1307.89 413.298 1301.28C417.246 1298.59 415.08 1299.22 420.097 1299.66C420.852 1300.32 421.606 1300.99 422.361 1301.65C422.243 1437.87 482.667 1567.29 586.717 1655.73C679.197 1734.35 804.421 1776.33 926.536 1763.81C1027.25 1753.83 1119.84 1704.19 1183.91 1625.86C1247.79 1547.14 1277.88 1446.33 1267.6 1345.48C1259.9 1275.11 1233.18 1208.16 1190.32 1151.83C1174.64 1131.39 1158.78 1115.49 1139.39 1098.86C1074.45 1043.2 1008.65 988.171 942.938 933.423C828.596 836.555 713.72 740.322 598.315 644.729C580.095 629.815 561.862 613.614 543.766 598.31C527.121 583.377 507.394 570.069 492.025 553.906C379.423 435.483 428.574 282.722 521.914 171.635C608.707 68.3383 720.461 13.2667 854.032 1.62804Z" fill="#1E1A16" fill-opacity="0.12"/>
+    </svg>
+  </div>
+  <div class="hero-label">SO Milano &middot; 2026</div>
+  <h1 class="hero-title">Стратегия</h1>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <div class="hero-scroll-text">Листать</div>
+  </div>
+</section>
+
+<!-- 00 — СТЕРЖЕНЬ -->
+<section class="section section-dust reveal" id="core" style="background:var(--dust)">
+  <div class="section-label">00 &mdash; Стержень бренда</div>
+  <h2 class="section-title">Одна фраза</h2>
+  <div class="divider-ochre"></div>
+  <div class="core-tagline">
+    SO Milano &mdash; <em>городской ресторанный формат</em><br>
+    с вечерней lounge-культурой,<br>
+    где сильная кухня, эстетика пространства<br>
+    и ритуал общения важнее кальянных<br>
+    стереотипов.
+  </div>
+  <p class="body-text">Это не слоган. Это внутренний ориентир — фраза, с которой сверяются все последующие решения: по дизайну, интерьеру, коммуникации, найму, меню.</p>
+</section>
+
+<!-- 01 — ПРИЧИНА -->
+<section class="section section-dust reveal" id="reason" style="background:var(--dust)">
+  <div class="section-label">01 &mdash; Причина существования</div>
+  <h2 class="section-title">На чём<br>стоит бренд</h2>
+  <div class="divider-chianti"></div>
+  <p class="body-text">SO — это не стартап с нуля. За брендом стоит реальный опыт: заведение, которое работает, аудитория, которая возвращается, и три вещи, которые гости называют причиной выбора — кальян, кухня и бар. Платформа не создаёт образ — она оформляет то, что уже есть.</p>
+
+  <div class="grid-2">
+    <div class="grid-cell">
+      <div class="grid-cell-num">6</div>
+      <div class="grid-cell-title">Лет работы</div>
+      <div class="grid-cell-text">Существующая база постоянных гостей. Репутация, которую не нужно создавать с нуля — нужно оформить и усилить.</div>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-num">30+</div>
+      <div class="grid-cell-title">Блюд из-под ножа</div>
+      <div class="grid-cell-text">Полноценная кухня — не закуски к кальяну. Это конкурентное преимущество, которое уже работает и которое гости замечают сами.</div>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-num">300</div>
+      <div class="grid-cell-title">м² в двух залах</div>
+      <div class="grid-cell-text">Пространство под два режима работы: дневная ресторанная посадка и вечерний lounge. Один интерьер — два ощущения.</div>
+    </div>
+    <div class="grid-cell">
+      <div class="grid-cell-num">SO</div>
+      <div class="grid-cell-title">Имя, пригодное для роста</div>
+      <div class="grid-cell-text">Короткое, нейтральное в digital, легко произносится на любом языке. Работает как для одной точки, так и для сети.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 — МИССИЯ -->
+<section class="section section-ochre reveal" id="mission" style="background:var(--surf)">
+  <div class="section-label">02 &mdash; Миссия</div>
+  <h2 class="section-title">Миссия</h2>
+  <div class="divider-ochre"></div>
+  <div class="pull-quote">
+    «Создать в Милане новый тип городского заведения — где качественная кухня, вечерняя атмосфера и ритуал кальяна сосуществуют <em>без клише</em> и без жанрового перекоса.»
+  </div>
+  <p class="body-text body-text-coal">Не просто место, где хорошо кормят. И не просто кальянная с едой. SO сознательно занимает позицию между — и строит из этого свою идентичность.</p>
+</section>
+
+<!-- 03 — ЦЕННОСТИ -->
+<section class="section section-ochre reveal" id="values" style="padding-top:0; border-top:1px solid rgba(168,146,120,0.2); background:var(--surf);">
+  <div class="section-label">03 &mdash; Ценности бренда</div>
+  <h2 class="section-title">Ценности</h2>
+
+  <div class="values-list">
+    <div class="value-item">
+      <div class="value-num">01</div>
+      <div>
+        <div class="value-title">Еда</div>
+        <div class="value-text">Кухня здесь не фон и не бонус. Это равноправный герой вечера. Гость, который пришёл за кальяном, уходит с мыслью о еде — и это не случайность, это намерение.</div>
+      </div>
+    </div>
+    <div class="value-item">
+      <div class="value-num">02</div>
+      <div>
+        <div class="value-title">Атмосфера — не декор</div>
+        <div class="value-text">Ощущение места важнее его стиля. Тепло, фактура, приглушённый свет, живой разговор — это то, за чем возвращаются. Не за картинкой на стене.</div>
+      </div>
+    </div>
+    <div class="value-item">
+      <div class="value-num">03</div>
+      <div>
+        <div class="value-title">Открытость</div>
+        <div class="value-text">SO — не закрытый клуб и не нишевое место. Сюда приходят очень разные люди, и это сила, а не проблема. Единственный фильтр — уважение к качеству.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 — ПРИНЦИПЫ -->
+<section class="section section-dust reveal" id="principles" style="background:var(--dust)">
+  <div class="section-label">04 &mdash; Стратегические принципы</div>
+  <h2 class="section-title">Принципы,<br>которые не меняются</h2>
+  <div class="divider-ash"></div>
+  <p class="body-text">Это не ценности и не пожелания. Это жёсткие ориентиры, от которых отталкиваются решения по интерьеру, визуалу, коммуникации и масштабированию.</p>
+
+  <div class="principles-list">
+    <div class="principle-item">
+      <div class="principle-arrow">→</div>
+      <div class="principle-text"><strong>Кухня и кальян — в паре.</strong> Это не кальянная с едой и не ресторан, который допускает кальян. Оба равноправны. В рекламе и digital мы чаще говорим о кухне — из-за ограничений на продвижение табака, но не потому что кальян второстепенен.</div>
+    </div>
+    <div class="principle-item">
+      <div class="principle-arrow">→</div>
+      <div class="principle-text"><strong>Один интерьер — два режима.</strong> Пространство не делится на «дневное» и «ночное». Оно меняется через свет, темп и атмосферу — не через ремонт.</div>
+    </div>
+    <div class="principle-item">
+      <div class="principle-arrow">→</div>
+      <div class="principle-text"><strong>Никакого восточного клише.</strong> Ни в интерьере, ни в тексте, ни в визуале. SO не арабская кальянная — это городское европейское место.</div>
+    </div>
+    <div class="principle-item">
+      <div class="principle-arrow">→</div>
+      <div class="principle-text"><strong>Бренд пригоден к развитию.</strong> Логотип, название, визуальная система и тональность строятся с расчётом на то, что SO — это не только Милан.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 — ПОЗИЦИОНИРОВАНИЕ -->
+<section class="section section-ochre reveal" id="positioning" style="background:var(--surf)">
+  <div class="section-label">05 &mdash; Позиционирование</div>
+  <h2 class="section-title">Где мы на карте</h2>
+  <div class="divider-ochre"></div>
+  <p class="pos-body-text">SO Milano — не кальянная с кухней и не ресторан, который пытается быть модным. Это городское место, где гость выбирает сам: пришёл на обед — получи обед. Пришёл вечером — получи атмосферу, кальян и еду одновременно.</p>
+
+  <div class="pos-grid">
+    <div class="pos-col no">
+      <div class="pos-col-title">Чем мы не являемся</div>
+      <div class="pos-item"><span class="pos-mark">✕</span> Арабская / восточная кальянная</div>
+      <div class="pos-item"><span class="pos-mark">✕</span> Лофт с кирпичной стеной</div>
+      <div class="pos-item"><span class="pos-mark">✕</span> Клуб / ночное заведение</div>
+      <div class="pos-item"><span class="pos-mark">✕</span> «Место только покурить»</div>
+      <div class="pos-item"><span class="pos-mark">✕</span> Пафосный fine dining</div>
+    </div>
+    <div class="pos-col yes">
+      <div class="pos-col-title">Чем мы являемся</div>
+      <div class="pos-item"><span class="pos-mark">✓</span> Ресторан с вечерней lounge-атмосферой</div>
+      <div class="pos-item"><span class="pos-mark">✓</span> Место для местных, экспатов и туристов</div>
+      <div class="pos-item"><span class="pos-mark">✓</span> Тёплое, фактурное, живое пространство</div>
+      <div class="pos-item"><span class="pos-mark">✓</span> Сильная кухня как главное преимущество</div>
+      <div class="pos-item"><span class="pos-mark">✓</span> Бренд, пригодный к развитию</div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 — РОЛЬ БРЕНДА -->
+<section class="section section-dust reveal" id="role" style="background:var(--dust)">
+  <div class="section-label">06 &mdash; Роль бренда</div>
+  <h2 class="section-title">Что SO даёт<br>человеку</h2>
+  <div class="divider-ash"></div>
+  <p class="body-text">Бренд — это не то, что написано в описании. Это то, что человек получает, когда он здесь.</p>
+
+  <div class="role-grid">
+    <div class="role-cell">
+      <div class="role-arrow">→</div>
+      <div class="role-title">Место встречи</div>
+      <div class="role-text">Сюда удобно позвать: тут и поесть можно, и остаться на вечер. Не нужно выбирать между ужином и атмосферой.</div>
+    </div>
+    <div class="role-cell">
+      <div class="role-arrow">→</div>
+      <div class="role-title">Свой вечер в городе</div>
+      <div class="role-text">Не событие, не клуб, не ресторан с дресс-кодом. Место, где можно расслабиться — и при этом не чувствовать себя в случайном заведении.</div>
+    </div>
+    <div class="role-cell">
+      <div class="role-arrow">→</div>
+      <div class="role-title">Место, которое рекомендуют</div>
+      <div class="role-text">SO легко описать: «там хорошая еда и можно покурить кальян». Именно простота рекомендации — это конкурентное преимущество.</div>
+    </div>
+    <div class="role-cell">
+      <div class="role-arrow">→</div>
+      <div class="role-title">Повторное возвращение</div>
+      <div class="role-text">Гость, который пришёл за кальяном, возвращается за едой. Гость, который пришёл пообедать, возвращается вечером. Это модель лояльности.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 — АУДИТОРИЯ -->
+<section class="section section-ochre reveal" id="audience" style="background:var(--surf)">
+  <div class="section-label">07 &mdash; Аудитория</div>
+  <h2 class="section-title">Три портрета<br>гостя</h2>
+
+  <div class="audience-grid">
+    <div class="audience-card">
+      <div class="audience-card-badge">Core</div>
+      <div class="audience-card-name">Местный / экспат</div>
+      <div class="audience-card-text">Живёт в районе или в Милане уже не первый год. Приходит регулярно — за едой, за атмосферой, за кальяном. Это ядро: он формирует репутацию и создаёт ощущение «живого» места.</div>
+    </div>
+    <div class="audience-card">
+      <div class="audience-card-badge">Secondary</div>
+      <div class="audience-card-name">Турист / путешественник</div>
+      <div class="audience-card-text">Находит нас на карте или по рекомендации — ищет место, где можно вкусно поесть и качественно подымить. Часто из СНГ, но не только. Приносит объём, особенно в сезон.</div>
+    </div>
+    <div class="audience-card">
+      <div class="audience-card-badge">Ambassador</div>
+      <div class="audience-card-name">Ценитель кальяна</div>
+      <div class="audience-card-text">Разбирается, сравнивает, рекомендует. Не самый массовый гость, но самый влиятельный для репутации. Именно он приводит других — и именно он замечает, если качество упало.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 — ТОНАЛЬНОСТЬ -->
+<section class="section section-dust reveal" id="tone" style="background:var(--dust)">
+  <div class="section-label">08 &mdash; Голос бренда</div>
+  <h2 class="section-title">Тональность</h2>
+  <div class="divider-ash"></div>
+  <p class="body-text body-text-coal">SO говорит уверенно, но без пафоса. Тепло, но не слащаво. С характером, но доступно для любой аудитории.</p>
+
+  <div class="tone-grid">
+    <div class="tone-col tone-yes">
+      <div class="tone-col-title">SO говорит</div>
+      <div class="tone-item"><span class="tone-mark">✓</span> Конкретно и ёмко</div>
+      <div class="tone-item"><span class="tone-mark">✓</span> С теплом, не с дистанцией</div>
+      <div class="tone-item"><span class="tone-mark">✓</span> Про еду — с гордостью</div>
+      <div class="tone-item"><span class="tone-mark">✓</span> Про атмосферу — через детали</div>
+      <div class="tone-item"><span class="tone-mark">✓</span> На нескольких языках органично</div>
+    </div>
+    <div class="tone-col tone-no">
+      <div class="tone-col-title">SO не говорит</div>
+      <div class="tone-item"><span class="tone-mark">✕</span> Избыточными эпитетами</div>
+      <div class="tone-item"><span class="tone-mark">✕</span> Клубным языком</div>
+      <div class="tone-item"><span class="tone-mark">✕</span> С акцентом только на кальяне</div>
+      <div class="tone-item"><span class="tone-mark">✕</span> Слишком формально</div>
+      <div class="tone-item"><span class="tone-mark">✕</span> С восточными отсылками в тексте</div>
+    </div>
+  </div>
+
+  <div class="instagram-example">
+    <div class="instagram-label">Пример — Instagram</div>
+    <div class="instagram-text">«Сегодня из кухни: тартар из говядины с трюфельным маслом и хрустящим луком-шалот. Пока есть — берите. Вечером откроем второй зал.»</div>
+  </div>
+</section>
+
+<!-- 09 — ВИЗУАЛЬНЫЙ ЯЗЫК -->
+<section class="section section-ochre reveal" id="visual" style="background:var(--surf)">
+  <div class="section-label" style="color:var(--ash)">09 &mdash; Визуальный язык</div>
+  <h2 class="section-title">Принципы<br>для дизайна<br>и интерьера</h2>
+  <div class="divider-ochre"></div>
+  <p class="body-text body-text-coal">Бренд-платформа должна переходить в конкретные визуальные решения. Вот ориентиры, которые сохраняются на всех носителях — от интерьера до Instagram.</p>
+
+  <div class="visual-list">
+    <div class="visual-item">
+      <div class="visual-arrow">→</div>
+      <div>
+        <div class="visual-title">Тепло вместо холода</div>
+        <div class="visual-text">Натуральные материалы, тактильные фактуры, тёплый свет. Не минимализм ради минимализма — а уют, за которым хочется вернуться.</div>
+      </div>
+    </div>
+    <div class="visual-item">
+      <div class="visual-arrow">→</div>
+      <div>
+        <div class="visual-title">Взрослость вместо клубности</div>
+        <div class="visual-text">Никаких неоновых вывесок, агрессивной типографики и клубных паттернов. SO выглядит спокойно и уверенно — без попытки казаться моложе, чем оно есть.</div>
+      </div>
+    </div>
+    <div class="visual-item">
+      <div class="visual-arrow">→</div>
+      <div>
+        <div class="visual-title">Сдержанная выразительность</div>
+        <div class="visual-text">Акцент — один. Шрифт — не более двух. Цвет — система, а не набор. Визуал SO говорит тихо, но его слышно.</div>
+      </div>
+    </div>
+    <div class="visual-item">
+      <div class="visual-arrow">→</div>
+      <div>
+        <div class="visual-title">Тактильность вместо лофтовой грубости</div>
+        <div class="visual-text">Кирпич, бетон и металлические трубы — это не SO. Текстиль, дерево, мягкие поверхности, приглушённые тона. Интерьер должен быть приятен на ощупь — буквально.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brand-essence">
+    <div class="brand-essence-label">Brand Essence — в трёх словах</div>
+    <div class="brand-essence-text">Городской вечерний ритуал.</div>
+  </div>
+</section>
+
+<!-- ПРАКТИКА -->
+<section class="section section-dust reveal" id="usage" style="background:var(--dust)">
+  <div class="section-label">Практика</div>
+  <h2 class="section-title">Как бренд-платформа<br>работает дальше</h2>
+  <div class="divider-ash"></div>
+  <p class="body-text body-text-coal">Бренд-платформа — это не разовый документ и не красивая презентация. Это внутренний инструмент, который отвечает на один вопрос: соответствует ли это решение тому, кем мы хотим быть?</p>
+  <p class="body-text body-text-coal">Любой следующий шаг — от выбора шрифта до открытия новой точки — сверяется с платформой. Это экономит время, снижает количество субъективных споров и даёт команде общий язык.</p>
+
+  <div class="usage-list">
+    <div class="usage-item">
+      <div class="usage-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <rect x="1" y="1" width="14" height="14" rx="1" stroke="var(--chianti)" stroke-width="1.2"/>
+          <path d="M4 8h5M7 5.5L9.5 8 7 10.5" stroke="var(--chianti)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div><strong>Визуальная идентичность.</strong> Логотип, цвета, шрифты, носители — всё разрабатывается на основе платформы, а не интуиции. Дизайнер получает чёткое задание вместо размытого брифа.</div>
+    </div>
+    <div class="usage-item">
+      <div class="usage-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <rect x="1" y="1" width="14" height="14" rx="1" stroke="var(--chianti)" stroke-width="1.2"/>
+          <path d="M4 8h5M7 5.5L9.5 8 7 10.5" stroke="var(--chianti)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div><strong>Интерьер.</strong> Архитектор и дизайнер интерьера работают не вслепую: у них есть ценности, визуальные принципы и чёткое понимание, какое ощущение должно возникать у гостя.</div>
+    </div>
+    <div class="usage-item">
+      <div class="usage-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <rect x="1" y="1" width="14" height="14" rx="1" stroke="var(--chianti)" stroke-width="1.2"/>
+          <path d="M4 8h5M7 5.5L9.5 8 7 10.5" stroke="var(--chianti)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div><strong>Сайт и соцсети.</strong> SMM-менеджер, копирайтер или подрядчик получают готовый тон голоса, понимание аудитории и границы коммуникации. Больше не нужно каждый раз объяснять, как писать про заведение.</div>
+    </div>
+    <div class="usage-item">
+      <div class="usage-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <rect x="1" y="1" width="14" height="14" rx="1" stroke="var(--chianti)" stroke-width="1.2"/>
+          <path d="M4 8h5M7 5.5L9.5 8 7 10.5" stroke="var(--chianti)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div><strong>Меню и подача.</strong> Как блюдо называется, как оно описано, как выглядит на столе — всё это часть бренда. Платформа помогает принимать эти решения последовательно.</div>
+    </div>
+    <div class="usage-item">
+      <div class="usage-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <rect x="1" y="1" width="14" height="14" rx="1" stroke="var(--chianti)" stroke-width="1.2"/>
+          <path d="M4 8h5M7 5.5L9.5 8 7 10.5" stroke="var(--chianti)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div><strong>Найм и сервис.</strong> Как говорит хостес, как ведёт себя официант, что транслирует кальянщик — это тоже бренд. Платформа становится основой для стандартов сервиса и онбординга команды.</div>
+    </div>
+    <div class="usage-item">
+      <div class="usage-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <rect x="1" y="1" width="14" height="14" rx="1" stroke="var(--chianti)" stroke-width="1.2"/>
+          <path d="M4 8h5M7 5.5L9.5 8 7 10.5" stroke="var(--chianti)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div><strong>Новые точки.</strong> Когда придёт время открывать SO в другом городе, платформа уже готова. Не нужно начинать с нуля — нужно адаптировать под локацию то, что уже сформулировано.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">2026 &nbsp;Бренд-платформа</div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
