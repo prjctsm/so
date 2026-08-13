@@ -242,6 +242,49 @@
   .menu-preview { margin-top: 48px; max-width: 480px; }
   .menu-preview img { width: 100%; height: auto; display: block; border-radius: 4px; }
 
+  /* ── NAMING BLOCK ── */
+  .naming-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; background: var(--border); margin-top: 48px;
+  }
+  .naming-cell { background: var(--surf); padding: 32px; }
+  .naming-cell.was { background: var(--dust); }
+  .naming-tag {
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    margin-bottom: 16px; font-weight: 500;
+  }
+  .naming-cell.was .naming-tag { color: var(--ash); }
+  .naming-cell.now .naming-tag { color: var(--chianti); }
+  .naming-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(26px, 3.2vw, 38px); font-weight: 400;
+    color: var(--coal); line-height: 1.15; margin-bottom: 12px;
+  }
+  .naming-cell.was .naming-value {
+    color: var(--ash); text-decoration: line-through; text-decoration-thickness: 1px;
+  }
+  .naming-note { font-size: 13px; font-weight: 300; line-height: 1.6; color: var(--ash); }
+
+  .naming-rules { margin-top: 2px; }
+  .naming-rule {
+    display: grid; grid-template-columns: 160px 1fr;
+    gap: 24px; padding: 20px 32px;
+    background: var(--surf); border-bottom: 1px solid var(--border);
+    align-items: baseline;
+  }
+  .naming-rule:first-child { border-top: 1px solid var(--border); }
+  .naming-context {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ash); font-weight: 500;
+  }
+  .naming-example {
+    font-size: 15px; font-weight: 300; line-height: 1.6; color: var(--coal);
+  }
+  .naming-example strong {
+    font-family: 'Cormorant Garamond', serif; font-weight: 400;
+    font-size: 18px; color: var(--chianti);
+  }
+
   /* ── DOWNLOAD ── */
   .download-card {
     display: flex; align-items: center; gap: 20px;
@@ -280,6 +323,8 @@
     .logo-system { grid-template-columns: repeat(2, 1fr); }
     .palette-grid { grid-template-columns: repeat(3, 1fr); }
     .color-rules, .modes-strip, .type-pair { grid-template-columns: 1fr; }
+    .naming-grid { grid-template-columns: 1fr; }
+    .naming-rule { grid-template-columns: 1fr; gap: 6px; }
     .use-row { grid-template-columns: 1fr; }
     nav { padding: 0 5vw; }
   }
@@ -420,9 +465,50 @@
 
 </section>
 
-<!-- 03 — ЦВЕТ -->
-<section class="section section-night reveal" id="s03">
-  <div class="section-label">03 &mdash; Цвет</div>
+<!-- 03 — КАК ПИСАТЬ НАЗВАНИЕ -->
+<section class="section section-dust reveal" id="s03">
+  <div class="section-label">03 &mdash; Наименование</div>
+  <h2 class="section-title">Как писать<br>название</h2>
+  <p class="section-sub">Имя бренда изменилось. Старого «SO Milano» как единого названия больше нет — теперь это система, где SO неизменно, а город и формат подставляются по контексту.</p>
+  <div class="divider"></div>
+
+  <div class="naming-grid">
+    <div class="naming-cell was">
+      <div class="naming-tag">Было</div>
+      <div class="naming-value">SO Milano</div>
+      <div class="naming-note">Единое название, без возможности роста. Город был вшит в имя.</div>
+    </div>
+    <div class="naming-cell now">
+      <div class="naming-tag">Стало</div>
+      <div class="naming-value">SO Restaurant<br>&amp; Smoke Lounge</div>
+      <div class="naming-note">Полное название бренда. SO — основа, город и формат — переменные.</div>
+    </div>
+  </div>
+
+  <div class="naming-rules">
+    <div class="naming-rule">
+      <div class="naming-context">Полное название</div>
+      <div class="naming-example"><strong>SO Restaurant &amp; Smoke Lounge</strong> — в описаниях, на сайте, в юридических документах, при первом упоминании.</div>
+    </div>
+    <div class="naming-rule">
+      <div class="naming-context">С городом</div>
+      <div class="naming-example"><strong>SO Milano</strong> — на вывеске, в меню, соцсетях. При масштабировании меняется город: SO Roma, SO Barcelona.</div>
+    </div>
+    <div class="naming-rule">
+      <div class="naming-context">Коротко</div>
+      <div class="naming-example"><strong>SO</strong> — в неформальном контексте, внутри текста после первого полного упоминания, на монограмме.</div>
+    </div>
+  </div>
+
+  <div class="rule-block">
+    <div class="rule-label">Правило</div>
+    <div class="rule-text">В текстах при первом упоминании — полное название или SO + город. Дальше по тексту можно просто SO. Никогда не пишем «Smoke One» — это старое имя, от которого бренд ушёл.</div>
+  </div>
+</section>
+
+<!-- 04 — ЦВЕТ -->
+<section class="section section-night reveal" id="s04">
+  <div class="section-label">04 &mdash; Цвет</div>
   <h2 class="section-title">Палитра</h2>
   <p class="section-sub">Шесть цветов. Два образа — свет и дым. Два режима — день и вечер. Использовать строго в рамках палитры.</p>
   <div class="divider"></div>
@@ -496,7 +582,7 @@
 
 <!-- 04 — ТИПОГРАФИКА -->
 <section class="section section-dust reveal" id="s04">
-  <div class="section-label">04 &mdash; Типографика</div>
+  <div class="section-label">05 &mdash; Типографика</div>
   <h2 class="section-title">Два шрифта.</h2>
   <p class="section-sub">Cormorant Garamond и Lato. Первый создаёт настроение, второй обеспечивает читаемость. Они не взаимозаменяемы.</p>
   <div class="divider"></div>
