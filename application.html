@@ -197,8 +197,7 @@
   .list li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; font-size: 16px; font-weight: 300; line-height: 1.45; color: var(--coal); }
   .list li span:first-child { color: var(--ash); font-size: 11px; letter-spacing: 0.1em; padding-top: 3px; }
   .list.brandmarks li span:first-child {
-    width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--chianti); color: var(--chianti);
-    display: inline-grid; place-items: center; font-size: 10px; letter-spacing: 0; padding: 0;
+    width: 12px; height: 1px; background: var(--chianti); margin-top: 12px; padding: 0;
   }
   .hero-shot { margin: 0; min-width: 0; }
   .photo { position: relative; aspect-ratio: 3 / 4; max-width: 100%; overflow: hidden; background: var(--surf); }
@@ -475,7 +474,7 @@
 <section class="section section-surf" id="looks">
   <div class="section-label">Образы &mdash; 5 ролей</div>
   <h2 class="section-title">Роли <em>команды</em></h2>
-  <p class="section-sub">Для каждой роли — общий план с отмеченными местами бренда и два крупных кадра: ключевая деталь и патч под монограмму.</p>
+  <p class="section-sub">Для каждой роли — общий план и два крупных кадра: ключевая деталь и патч под монограмму.</p>
   <div class="divider"></div>
   <div id="lookList"></div>
 </section>
@@ -586,12 +585,11 @@ document.getElementById("lookList").innerHTML = LOOKS.map((l, i) => `
       <div><div class="tag-mini">Состав</div>
         <ul class="list">${l.items.map((t, k) => `<li><span>${pad(k + 1)}</span><span>${esc(t)}</span></li>`).join("")}</ul></div>
       <div><div class="tag-mini">Где бренд</div>
-        <ul class="list brandmarks">${l.marks.map((m, k) => `<li><span>${k + 1}</span><span>${esc(m[2])}</span></li>`).join("")}</ul></div>
+        <ul class="list brandmarks">${l.marks.map(m => `<li><span></span><span>${esc(m[2])}</span></li>`).join("")}</ul></div>
     </div>
     <figure class="hero-shot">
       <div class="photo">
         <img src="${l.img}" alt="${esc(l.role)}: образ в полный рост" loading="${i ? "lazy" : "eager"}">
-        ${l.marks.map((m, k) => `<span class="pin" style="left:${m[0]}%;top:${m[1]}%">${k + 1}</span>`).join("")}
       </div>
       <figcaption class="tag-mini"><span>Look ${pad(i + 1)} · анфас</span><span>${esc(l.it)}</span></figcaption>
     </figure>
