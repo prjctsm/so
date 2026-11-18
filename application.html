@@ -28,7 +28,8 @@
 
 * { box-sizing: border-box; }
 body { margin:0; background: var(--paper); color: var(--ink); font-family: var(--body); font-weight: 300; font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
-.wrap { max-width: 1240px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { padding-left: max(6vw, env(safe-area-inset-left, 0px)); padding-right: max(6vw, env(safe-area-inset-right, 0px)); }
+@media (max-width: 768px) { .wrap { padding-left: max(5vw, env(safe-area-inset-left, 0px)); padding-right: max(5vw, env(safe-area-inset-right, 0px)); } }
 .label { font-size: 11px; letter-spacing: 0; text-transform: uppercase; font-weight: 400; color: var(--ash); }
 
 /* Шапка */
@@ -50,7 +51,7 @@ body::before { content:""; position: fixed; inset: 0 0 auto; height: env(safe-ar
 .concept .num { font-family: var(--display); font-style: italic; color: var(--chianti); font-size: 22px; margin-right: 14px; }
 
 /* Сетка команды */
-.grid { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 56px 24px; padding-bottom: 72px; }
+.grid { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 64px 3vw; padding-bottom: 72px; }
 .fig { margin: 0; display:grid; gap: 14px; }
 .fig figcaption { display:flex; justify-content:space-between; align-items:baseline; gap: 12px; border-top: 1px solid var(--line); padding-top: 12px; }
 .fig b { font-family: var(--display); font-weight: 500; font-size: 26px; line-height: 1.1; }
@@ -73,7 +74,7 @@ body::before { content:""; position: fixed; inset: 0 0 auto; height: env(safe-ar
 
 .foot { border-top: 1px solid var(--line); padding-block: 24px 40px; display:flex; justify-content:space-between; gap: 12px; flex-wrap: wrap; }
 
-@media (max-width: 720px) {
+@media (max-width: 768px) {
   .grid { grid-template-columns: minmax(0,1fr); gap: 40px; padding-bottom: 48px; }
   .intro { padding-block: 40px 28px; }
   .brand { font-size: 19px; }
